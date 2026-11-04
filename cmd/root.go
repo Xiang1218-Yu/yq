@@ -220,6 +220,7 @@ yq -P -oy sample.json
 	rootCmd.AddCommand(
 		createEvaluateSequenceCommand(),
 		createEvaluateAllCommand(),
+		createRoundTripCommand(),
 		completionCmd,
 	)
 	return rootCmd

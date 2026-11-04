@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"os"
 
 	command "github.com/mikefarah/yq/v4/cmd"
@@ -20,6 +21,10 @@ func main() {
 	}
 
 	if err := cmd.Execute(); err != nil {
+		var exitCodeError *command.ExitCodeError
+		if errors.As(err, &exitCodeError) {
+			os.Exit(exitCodeError.Code)
+		}
 		os.Exit(1)
 	}
 }
