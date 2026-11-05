@@ -97,6 +97,9 @@ func evaluateAll(cmd *cobra.Command, args []string) (cmdError error) {
 	}
 
 	printer := yqlib.NewPrinter(encoder, printerWriter)
+	if maxResultsFlagConfigured(cmd) {
+		printer = yqlib.NewMaxResultsPrinter(printer, uint64(maxResults))
+	}
 	if nulSepOutput {
 		printer.SetNulSepOutput(true)
 	}

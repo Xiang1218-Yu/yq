@@ -15,6 +15,7 @@ var inputFormat = ""
 
 var exitStatus = false
 var indent = 2
+var maxResults = 0
 var noDocSeparators = false
 var nullInput = false
 var nulSepOutput = false

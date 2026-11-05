@@ -65,6 +65,16 @@ func loadSplitFileExpression() error {
 	return nil
 }
 
+func maxResultsFlagConfigured(cmd *cobra.Command) bool {
+	if flag := cmd.Flags().Lookup("max-results"); flag != nil {
+		return flag.Changed
+	}
+	if flag := cmd.InheritedFlags().Lookup("max-results"); flag != nil {
+		return flag.Changed
+	}
+	return false
+}
+
 func handleBackwardsCompatibility() {
 	// backwards compatibility
 	if outputToJSON {
@@ -91,6 +101,10 @@ func validateCommandFlags(args []string) error {
 
 	if indent < 0 {
 		return fmt.Errorf("indent must not be negative")
+	}
+
+	if maxResults < 0 {
+		return fmt.Errorf("max-results must not be negative")
 	}
 
 	return nil

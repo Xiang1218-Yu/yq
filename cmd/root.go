@@ -176,6 +176,10 @@ yq -P -oy sample.json
 	if err = rootCmd.RegisterFlagCompletionFunc("indent", cobra.NoFileCompletions); err != nil {
 		panic(err)
 	}
+	rootCmd.PersistentFlags().IntVar(&maxResults, "max-results", 0, "maximum number of top-level results to write for this command invocation. When the expression would produce more results, yq stops with a non-zero error instead of silently truncating the output.")
+	if err = rootCmd.RegisterFlagCompletionFunc("max-results", cobra.NoFileCompletions); err != nil {
+		panic(err)
+	}
 	rootCmd.Flags().BoolVarP(&version, "version", "V", false, "Print version information and quit")
 	rootCmd.PersistentFlags().BoolVarP(&writeInplace, "inplace", "i", false, "update the file in place of first file given.")
 	rootCmd.PersistentFlags().VarP(unwrapScalarFlag, "unwrapScalar", "r", "unwrap scalar, print the value with no quotes, colours or comments. Defaults to true for yaml")

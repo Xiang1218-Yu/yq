@@ -111,6 +111,10 @@ func evaluateSequence(cmd *cobra.Command, args []string) (cmdError error) {
 		printer = yqlib.NewNodeInfoPrinter(printerWriter)
 	}
 
+	if maxResultsFlagConfigured(cmd) {
+		printer = yqlib.NewMaxResultsPrinter(printer, uint64(maxResults))
+	}
+
 	if nulSepOutput {
 		printer.SetNulSepOutput(true)
 	}
