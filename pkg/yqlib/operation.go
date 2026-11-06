@@ -39,6 +39,7 @@ func createValueOperation(value interface{}, stringValue string) *Operation {
 var orOpType = &operationType{Type: "OR", NumArgs: 2, Precedence: 20, Handler: orOperator}
 var andOpType = &operationType{Type: "AND", NumArgs: 2, Precedence: 20, Handler: andOperator}
 var reduceOpType = &operationType{Type: "REDUCE", NumArgs: 2, Precedence: 35, Handler: reduceOperator}
+var foreachOpType = &operationType{Type: "FOREACH", NumArgs: 2, Precedence: 35, Handler: foreachOperator}
 
 // if-then-else: lower precedence than everything else, as the keywords separate whole expressions.
 // then binds tighter than elif / else so `if a then b elif c then d else e end` parses as (a then b) elif ((c then d) else e)

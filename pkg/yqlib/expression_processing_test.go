@@ -116,6 +116,16 @@ var pathTests = []struct {
 		append(make([]interface{}, 0), "a", "GET_VARIABLE", "ASSIGN_VARIABLE", "0 (int64)", "SELF", "GET_VARIABLE", "ADD", "BLOCK", "REDUCE"),
 	},
 	{
+		`.a as $item foreach (0; . + $item)`, // foreach is shuffled into place for postfix the same way as ireduce
+		append(make([]interface{}, 0), "a", "ASSIGN_VARIABLE", "GET_VARIABLE", "FOREACH", "(", "0 (int64)", "BLOCK", "SELF", "ADD", "GET_VARIABLE", ")"),
+		append(make([]interface{}, 0), "a", "GET_VARIABLE", "ASSIGN_VARIABLE", "0 (int64)", "SELF", "GET_VARIABLE", "ADD", "BLOCK", "FOREACH"),
+	},
+	{
+		`.a as $item foreach (0; . + $item; .)`,
+		append(make([]interface{}, 0), "a", "ASSIGN_VARIABLE", "GET_VARIABLE", "FOREACH", "(", "0 (int64)", "BLOCK", "SELF", "ADD", "GET_VARIABLE", "BLOCK", "SELF", ")"),
+		append(make([]interface{}, 0), "a", "GET_VARIABLE", "ASSIGN_VARIABLE", "0 (int64)", "SELF", "GET_VARIABLE", "ADD", "SELF", "BLOCK", "BLOCK", "FOREACH"),
+	},
+	{
 		`.a | .b | .c`,
 		append(make([]interface{}, 0), "a", "PIPE", "b", "PIPE", "c"),
 		append(make([]interface{}, 0), "a", "b", "c", "PIPE", "PIPE"),

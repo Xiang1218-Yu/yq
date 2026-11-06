@@ -114,6 +114,7 @@ var participleYqRules = []*participleYqRule{
 	simpleOp("and", andOpType),
 	simpleOp("not", notOpType),
 	simpleOp("ireduce", reduceOpType),
+	simpleOp("foreach", foreachOpType),
 
 	simpleOp("join", joinStringOpType),
 	simpleOp("sub", subStringOpType),
